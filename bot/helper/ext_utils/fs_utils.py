@@ -186,16 +186,6 @@ async def edit_metadata(listener, base_dir: str, media_file: str, outfile: str, 
            f'title={metadata}', '-metadata', f'copyright={metadata}', '-metadata', f'description={metadata}', '-metadata', f'MOVIE name={metadata}', f'FileExtension_Invaild={metadata}', '-metadata:s:a', f'title={metadata}', '-metadata:s:s', f'title={metadata}', '-map', '0:v:0?',
            '-map', '0:a:?', '-map', '0:s:?', '-c:v', 'copy', '-c:a', 'copy', '-c:s', 'copy', outfile, '-y']
     listener.suproc = await create_subprocess_exec(*cmd, stderr=PIPE)
-    if process.returncode != 0:
-      LOGGER.error(f"Error getting stream info: {stderr.decode().strip()}")
-     return file
-
-     try:
-    streams = json.loads(stdout)['streams']
-    except KeyError:
-    LOGGER.error(f"No streams found in the ffprobe output: {stdout.decode().strip()}")
-    return file
-    code = await listener.suproc.wait()
     if code == 0:
         await clean_target(media_file)
         listener.seed = False

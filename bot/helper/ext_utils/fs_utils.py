@@ -190,8 +190,8 @@ async def edit_metadata(listener, base_dir: str, media_file: str, outfile: str, 
     listener.suproc = await create_subprocess_exec(*cmd, stderr=PIPE)
     code = await listener.suproc.wait()
     if code == 0:
-        listener.seed = False
         await clean_target(media_file)
+        listener.seed = False
         await move(outfile, base_dir)
     else:
         await clean_target(outfile)

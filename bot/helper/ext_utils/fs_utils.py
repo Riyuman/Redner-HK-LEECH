@@ -186,10 +186,12 @@ async def edit_metadata(listener, base_dir: str, media_file: str, outfile: str, 
            f'title={metadata}', '-metadata', f'copyright={metadata}', '-metadata', f'description={metadata}', '-metadata', f'MOVIE name={metadata}', f'FileExtension_Invaild={metadata}', '-metadata:s:a', f'title={metadata}', '-metadata:s:s', f'title={metadata}', '-map', '0:v:0?',
            '-map', '0:a:?', '-map', '0:s:?', '-c:v', 'copy', '-c:a', 'copy', '-c:s', 'copy', outfile, '-y']
     listener.suproc = await create_subprocess_exec(*cmd, stderr=PIPE)
+
     if code == 0:
-        await clean_target(media_file)
-        listener.seed = False
-        await move(outfile, base_dir)
-    else:
-        await clean_target(outfile)
-        LOGGER.error('%s. Changing metadata failed, Path %s', await listener.suproc.stderr.read().decode(), media_file)
+    await clean_target(media_file)
+    listener.seed = False
+    await move(outfile, base_dir)
+    else: 
+    await clean_target(outfile)
+    LOGGER.error('%s. Changing metadata failed, Path %s', await listener.suproc.stderr.read().decode(), media_file)
+

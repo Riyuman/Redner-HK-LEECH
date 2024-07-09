@@ -82,6 +82,7 @@ async def get_media_info(path, metadata=False):
     copyright = tags.get('COPYRIGHT') or tags.get('copyright') or tags.get("Copyright")
     author = tags.get('AUTHOR') or tags.get('author') or tags.get("Author")
     website = tags.get('WEBSITE') or tags.get('Website') or tags.get('WebSite') or tags.get("website")
+    encoded = tags.get("Encoded by")
     return duration, artist, title, movie_name, comment, copyright, author, website 
 
 

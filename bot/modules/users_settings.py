@@ -73,31 +73,31 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
     rclone_path = f'wcl/{user_id}.conf'
     user_dict = user_data.get(user_id, {})
     if key is None:
-        buttons.ibutton("ᴜɴɪᴠᴇʀꜱᴀʟ ꜱᴇᴛᴛɪɴɢꜱ", f"userset {user_id} universal")
+        buttons.ibutton("ᴜɴɪᴠᴇʀꜱᴀʟ ꜱᴇᴛᴛɪɴɢꜱ ", f"userset {user_id} universal")
         buttons.ibutton("ᴍɪʀʀᴏʀ ꜱᴇᴛᴛɪɴɢꜱ", f"userset {user_id} mirror")
-        buttons.ibutton("Leech Settings", f"userset {user_id} leech")
+        buttons.ibutton("ʟᴇᴇᴄʜ ꜱᴇᴛᴛɪɴɢꜱ", f"userset {user_id} leech")
         if user_dict and any(key in user_dict for key in list(fname_dict.keys())):
-            buttons.ibutton("Reset Setting", f"userset {user_id} reset_all")
-        buttons.ibutton("Close", f"userset {user_id} close")
+            buttons.ibutton("ʀᴇꜱᴇᴛ ꜱᴇᴛᴛɪɴɢ", f"userset {user_id} reset_all")
+        buttons.ibutton("ᴄʟᴏꜱᴇ", f"userset {user_id} close")
 
         text = BotTheme('USER_SETTING', NAME=name, ID=user_id, USERNAME=f'@{from_user.username}', LANG=Language.get(lc).display_name() if (lc := from_user.language_code) else "N/A", DC=from_user.dc_id)
         
         button = buttons.build_menu(1)
     elif key == 'universal':
         ytopt = 'Not Exists' if (val:=user_dict.get('yt_opt', config_dict.get('YT_DLP_OPTIONS', ''))) == '' else val
-        buttons.ibutton(f"{'✅️' if ytopt != 'Not Exists' else ''} YT-DLP Options", f"userset {user_id} yt_opt")
+        buttons.ibutton(f"{'✅️' if ytopt != 'Not Exists' else ''} ʏᴛ-ᴅʟᴘ ᴏᴘᴛɪᴏɴꜱ", f"userset {user_id} yt_opt")
         u_sess = 'Exists' if user_dict.get('usess', False) else 'Not Exists'
-        buttons.ibutton(f"{'✅️' if u_sess != 'Not Exists' else ''} User Session", f"userset {user_id} usess")
+        buttons.ibutton(f"{'✅️' if u_sess != 'Not Exists' else ''} ᴜꜱᴇʀ ꜱᴇꜱꜱɪᴏɴ", f"userset {user_id} usess")
         bot_pm = "Enabled" if user_dict.get('bot_pm', config_dict['BOT_PM']) else "Disabled"
-        buttons.ibutton('Disable Bot PM' if bot_pm == 'Enabled' else 'Enable Bot PM', f"userset {user_id} bot_pm")
+        buttons.ibutton('ᴅɪꜱᴀʙʟᴇ ʙᴏᴛ ᴘᴍ' if bot_pm == 'Enabled' else 'ᴇɴᴀʙʟᴇ ʙᴏᴛ ᴘᴍ', f"userset {user_id} bot_pm")
         if config_dict['BOT_PM']:
             bot_pm = "Force Enabled"
         mediainfo = "Enabled" if user_dict.get('mediainfo', config_dict['SHOW_MEDIAINFO']) else "Disabled"
-        buttons.ibutton('Disable MediaInfo' if mediainfo == 'Enabled' else 'Enable MediaInfo', f"userset {user_id} mediainfo")
+        buttons.ibutton('ᴅɪꜱᴀʙʟᴇ ᴍᴇᴅɪᴀɪɴꜰᴏ' if mediainfo == 'Enabled' else 'ᴇɴᴀʙʟᴇ ᴍᴇᴅɪᴀɪɴꜰᴏ', f"userset {user_id} mediainfo")
         if config_dict['SHOW_MEDIAINFO']:
             mediainfo = "Force Enabled"
-        save_mode = "Save As Dump" if user_dict.get('save_mode') else "Save As BotPM"
-        buttons.ibutton('Save As BotPM' if save_mode == 'Save As Dump' else 'Save As Dump', f"userset {user_id} save_mode")
+        save_mode = "ꜱᴀᴠᴇ ᴀꜱ ᴅᴜᴍᴘ" if user_dict.get('save_mode') else "ꜱᴀᴠᴇ ᴀꜱ ʙᴏᴛᴘᴍ"
+        buttons.ibutton('ꜱᴀᴠᴇ ᴀꜱ ʙᴏᴛᴘᴍ' if save_mode == 'ꜱᴀᴠᴇ ᴀꜱ ᴅᴜᴍᴘ' else 'ꜱᴀᴠᴇ ᴀꜱ ᴅᴜᴍᴘ', f"userset {user_id} save_mode")
         dailytl = config_dict['DAILY_TASK_LIMIT'] or "∞"
         dailytas = user_dict.get('dly_tasks')[1] if user_dict and user_dict.get('dly_tasks') and user_id != OWNER_ID and config_dict['DAILY_TASK_LIMIT'] else config_dict['DAILY_TASK_LIMIT'] or "️∞" if user_id != OWNER_ID else "∞"
         if user_dict.get('dly_tasks', False):
@@ -105,7 +105,7 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
             lastused = f"{t[0]}h {t[1]}m {t[2].split('.')[0]}s ago"
         else: lastused = "Bot Not Used yet.."
 
-        text = BotTheme('UNIVERSAL', NAME=name, YT=escape(ytopt), DT=f"{dailytas} / {dailytl}", LAST_USED=lastused, BOT_PM=bot_pm, MEDIAINFO=mediainfo, SAVE_MODE=save_mode, USESS=u_sess)
+        text = BotTheme('Universal', NAME=name, YT=escape(ytopt), DT=f"{dailytas} / {dailytl}", LAST_USED=lastused, BOT_PM=bot_pm, MEDIAINFO=mediainfo, SAVE_MODE=save_mode, USESS=u_sess)
         buttons.ibutton("Back", f"userset {user_id} back", "footer")
         buttons.ibutton("Close", f"userset {user_id} close", "footer")
         button = buttons.build_menu(2)

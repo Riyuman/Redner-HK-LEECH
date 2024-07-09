@@ -83,7 +83,7 @@ async def get_media_info(path, metadata=False):
     author = tags.get('AUTHOR') or tags.get('author') or tags.get("Author")
     website = tags.get('WEBSITE') or tags.get('Website') or tags.get('WebSite') or tags.get("website")
     encoded = tags.get("Encoded by")
-    return duration, artist, title, movie_name, comment, copyright, author, website 
+    return duration, artist, title, movie_name, comment, copyright, author, website, encoded
 
 
 async def get_document_type(path):

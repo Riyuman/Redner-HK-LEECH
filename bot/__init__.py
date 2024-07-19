@@ -228,8 +228,6 @@ if len(MEGA_EMAIL) == 0 or len(MEGA_PASSWORD) == 0:
     MEGA_EMAIL = ''
     MEGA_PASSWORD = ''
 
-METADATA = environ.get('METADATA', '')
-
 GDTOT_CRYPT = environ.get('GDTOT_CRYPT', '')
 if len(GDTOT_CRYPT) == 0:
     GDTOT_CRYPT = ''

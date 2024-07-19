@@ -49,7 +49,6 @@ fname_dict = {'rcc': 'RClone',
              'lprefix': 'Prefix',
              'lsuffix': 'Suffix',
              'lremname': 'Remname',
-             'lmeta': 'Metadata',
              'mprefix': 'Prefix',
              'msuffix': 'Suffix',
              'mremname': 'Remname',
@@ -172,9 +171,6 @@ async def get_user_settings(from_user, key=None, edit_type=None, edit_mode=None)
 
         buttons.ibutton("Leech Dump", f"userset {user_id} ldump")
         ldump = 'Not Exists' if (val:=user_dict.get('ldump', '')) == '' else len(val)
-
-        lmeta = 'Not Exists' if (val:=user_dict.get('lmeta', config_dict.get('METADATA', ''))) == '' else val
-        buttons.ibutton(f"{'✅️' if lmeta != 'Not Exists' else ''} •••´º´•» 𝐌𝐞𝐭𝐚𝐝𝐚𝐭𝐚 «•´º´•••", f"userset {user_id} lmeta")
                 
         text = BotTheme('LEECH', NAME=name, DL=f"{dailyll} / {dailytlle}",
                 LTYPE=ltype, THUMB=thumbmsg, SPLIT_SIZE=split_size,
@@ -294,8 +290,6 @@ async def user_settings(client, message):
     /cmd -s lsuffix
 ➲ <b>Leech Filename Remname :</b>
     /cmd -s lremname
-➲ <b>Leech Metadata Text :</b>
-    /cmd -s lmeta
 ➲ <b>Leech Filename Caption :</b>
     /cmd -s lcaption
 ➲ <b>YT-DLP Options :</b>
@@ -615,7 +609,7 @@ async def edit_user_settings(client, query):
         pfunc = partial(set_custom, pre_event=query, key=data[2])
         rfunc = partial(update_user_settings, query, data[2], 'mirror' if data[2] in ['ddl_servers', 'user_tds'] else "ddl_servers")
         await event_handler(client, query, pfunc, rfunc)
-    elif data[2] in ['lprefix', 'lsuffix', 'lremname', 'lcaption', 'ldump', 'mprefix', 'msuffix', 'mremname', 'lmeta']:
+    elif data[2] in ['lprefix', 'lsuffix', 'lremname', 'lcaption', 'ldump', 'mprefix', 'msuffix', 'mremname']:
         handler_dict[user_id] = False
         await query.answer()
         edit_mode = len(data) == 4
@@ -625,7 +619,7 @@ async def edit_user_settings(client, query):
         pfunc = partial(set_custom, pre_event=query, key=data[2])
         rfunc = partial(update_user_settings, query, data[2], return_key)
         await event_handler(client, query, pfunc, rfunc)
-    elif data[2] in ['dlprefix', 'dlsuffix', 'dlremname', 'dlcaption', 'dldump', 'dlmeta']:
+    elif data[2] in ['dlprefix', 'dlsuffix', 'dlremname', 'dlcaption', 'dldump']:
         handler_dict[user_id] = False
         await query.answer()
         update_user_ldata(user_id, data[2][1:], {} if data[2] == 'dldump' else '')
